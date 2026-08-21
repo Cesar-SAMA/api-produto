@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "produto")
@@ -23,9 +25,13 @@ public class Produto {
     @Column(nullable = false)
     private String nome;
     private String descricao;
+
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
     private LocalDate dataCadastro;
+  @NotNull(message = "O preço é obrigatório.")
+  @Positive(message = "O preço deve ser maior que zero.")
+
 
     public Long getId() {
         return id;
@@ -73,5 +79,7 @@ public class Produto {
             dataCadastro = LocalDate.now();
         }
     }
+  
+    
 
 }
